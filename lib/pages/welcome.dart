@@ -10,42 +10,54 @@ class _Screen extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             //borderRadius: BorderRadius.all(Radius.circular(5)),
             /*boxShadow: <BoxShadow>[
-              BoxShadow(
-                  color: Colors.blue[50],
-                  offset: Offset(2, 4),
-                  blurRadius: 5,
-                  spreadRadius: 2)
-            ],*/
+                  BoxShadow(
+                      color: Colors.blue[50],
+                      offset: Offset(2, 4),
+                      blurRadius: 5,
+                      spreadRadius: 2)
+              ],*/
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [Color(0xff5be3c5), Color(0xff4aedc9)]),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Stack(
             children: [
-              _title(),
-              SizedBox(
-                height: 80,
+              Positioned(
+                bottom: -95,
+                child: _backgroundAnimated(),
               ),
-              _loginButton(),
-              SizedBox(
-                height: 20,
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _title(),
+                    SizedBox(
+                      height: 80,
+                    ),
+                    _loginButton(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    _registerButton(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    _label(),
+                    //
+                  ],
+                ),
               ),
-              _registerButton(),
-              SizedBox(
-                height: 20,
-              ),
-              _label(),
             ],
           ),
         ),
@@ -110,13 +122,14 @@ class _Screen extends State<WelcomePage> {
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
+        height: 30,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: Color(0xffb9dcf0),
         ),
         child: Text(
           'Login',
-          style: TextStyle(fontSize: 20, color: Colors.black),
+          style: TextStyle(fontSize: 18, color: Colors.black),
         ),
       ),
     );
@@ -132,13 +145,14 @@ class _Screen extends State<WelcomePage> {
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
+        height: 30,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: Color(0xffb9dcf0),
         ),
         child: Text(
           'Register Now',
-          style: TextStyle(fontSize: 20, color: Colors.black),
+          style: TextStyle(fontSize: 18, color: Colors.black),
         ),
       ),
     );
@@ -166,11 +180,26 @@ class _Screen extends State<WelcomePage> {
           ),
           SizedBox(height: 20),
           Text(
-            'Touch ID',
+            'Use Touch ID',
             style: TextStyle(decoration: TextDecoration.underline),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _backgroundAnimated() {
+    return TweenAnimationBuilder(
+      duration: Duration(seconds: 5),
+      tween: Tween<double>(begin: 0, end: 34),
+      builder: (_, double y, __) {
+        return Transform.translate(
+          offset: Offset(0, -y),
+          child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Image.asset("assets/images/dog.png")),
+        );
+      },
     );
   }
 }

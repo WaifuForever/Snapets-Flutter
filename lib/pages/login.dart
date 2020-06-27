@@ -18,22 +18,40 @@ class _Screen extends State<LoginPage> {
           child: Column(
             children: [
               _backButton(),
-              Container(
-                margin: const EdgeInsets.only(top: 40),
-                child: Text("SnapFlutter"),
-              ),
-              TextField(
-                obscureText: false,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    fillColor: Color(0xffdde7ed),
-                    filled: true),
-              ),
+              _title(),
+              _entryField('Email id'),
               _loginButton(),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _entryField(String text) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          text,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 15,
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        TextField(
+          obscureText: false,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            fillColor: Color(0xffdde7ed),
+            filled: true,
+            hintText: text,
+          ),
+        ),
+      ],
     );
   }
 
@@ -47,6 +65,7 @@ class _Screen extends State<LoginPage> {
       },
       child: Container(
         margin: const EdgeInsets.only(top: 15),
+        height: 30,
         width: MediaQuery.of(context).size.width,
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -84,6 +103,53 @@ class _Screen extends State<LoginPage> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _title() {
+    return Wrap(
+      direction: Axis.vertical,
+      spacing: -10,
+      runSpacing: 0,
+      children: <Widget>[
+        RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            text: 'Sna',
+            style: TextStyle(
+              fontFamily: 'FiraCode',
+              fontSize: 32,
+              fontWeight: FontWeight.w700,
+              color: Colors.blueAccent,
+            ),
+            children: [
+              TextSpan(
+                  text: 'Pets',
+                  style: TextStyle(
+                    fontFamily: 'Reindeer',
+                    fontSize: 37,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xff438d91),
+                  ))
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(24, 0, 0, 0),
+          child: RichText(
+            textAlign: TextAlign.right,
+            text: TextSpan(
+              text: 'Waifu_Forever',
+              style: TextStyle(
+                fontFamily: 'FiraCode',
+                fontSize: 10,
+                fontWeight: FontWeight.w700,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
                         shape: BoxShape.circle,
                         image: new DecorationImage(
                           fit: BoxFit.fill,
-                          image: new ExactAssetImage('assets/logo.jpeg'),
+                          image: new ExactAssetImage('assets/images/logo.jpeg'),
                         ),
                       ),
                     ),
