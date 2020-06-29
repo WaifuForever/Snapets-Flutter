@@ -8,6 +8,28 @@ class LoginPage extends StatefulWidget {
 }
 
 class _Screen extends State<LoginPage> {
+  String _login = "", _password = "";
+
+  void _showDialog() {
+    // debug method
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text("Data stored:"),
+            content: new Text("Data: " + _login + " " + _password),
+            actions: [
+              new FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: new Text("Close"),
+              ),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +41,8 @@ class _Screen extends State<LoginPage> {
             children: [
               _backButton(),
               _title(),
-              _entryField('Email id'),
+              _entryField('Email id', isPassword: false),
+              _entryField('Password'),
               _loginButton(),
             ],
           ),
@@ -28,7 +51,7 @@ class _Screen extends State<LoginPage> {
     );
   }
 
-  Widget _entryField(String text) {
+  Widget _entryField(String text, {bool isPassword = true}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -42,14 +65,33 @@ class _Screen extends State<LoginPage> {
         SizedBox(
           height: 10,
         ),
-        TextField(
-          obscureText: false,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            fillColor: Color(0xffdde7ed),
-            filled: true,
-            hintText: text,
-          ),
+        isPassword
+            ? TextField(
+                obscureText: true,
+                maxLength: 16,
+                onChanged: (text) {
+                  _password = text;
+                },
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  fillColor: Color(0xffdde7ed),
+                  filled: true,
+                  hintText: text,
+                ),
+              )
+            : TextField(
+                onChanged: (text) {
+                  _login = text;
+                },
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  fillColor: Color(0xffdde7ed),
+                  filled: true,
+                  hintText: text,
+                ),
+              ),
+        SizedBox(
+          height: 10,
         ),
       ],
     );
@@ -65,7 +107,7 @@ class _Screen extends State<LoginPage> {
       },
       child: Container(
         margin: const EdgeInsets.only(top: 15),
-        height: 30,
+        height: 40,
         width: MediaQuery.of(context).size.width,
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -100,6 +142,7 @@ class _Screen extends State<LoginPage> {
             Container(
               child: Icon(Icons.keyboard_arrow_left, color: Colors.black),
             ),
+            Text("Back"),
           ],
         ),
       ),

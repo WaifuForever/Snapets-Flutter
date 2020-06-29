@@ -196,8 +196,12 @@ class _Screen extends State<WelcomePage> {
         return Transform.translate(
           offset: Offset(0, -y),
           child: Container(
-              width: MediaQuery.of(context).size.width,
-              child: Image.asset("assets/images/dog.png")),
+            width: MediaQuery.of(context).size.width,
+            child: Opacity(
+              opacity: 0.75,
+              child: Image.asset("assets/images/dog.png"),
+            ),
+          ),
         );
       },
     );
